@@ -1,3 +1,4 @@
+from django.forms.widgets import Media
 from django.shortcuts import render, redirect
 from .forms import PythonCreateForm
 from .models import Python
@@ -14,9 +15,10 @@ def create(request):
         form = PythonCreateForm()
         return render(request, 'create.html', {'form': form})
     else:
-        form = PythonCreateForm(request.POST)
+        form = PythonCreateForm(request.POST, request.FILES)
         print(form)
         if form.is_valid():
             python = form.save()
             python.save()
             return redirect('index')
+        return render(request, 'create.html', {'form': form})
