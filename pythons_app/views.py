@@ -22,3 +22,8 @@ def create(request):
             python.save()
             return redirect('index')
         return render(request, 'create.html', {'form': form})
+
+def delete(request, pk):
+    item = Python.objects.get(pk=pk)
+    item.delete()
+    return redirect('index')
